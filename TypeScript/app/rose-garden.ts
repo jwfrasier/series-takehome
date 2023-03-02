@@ -23,36 +23,54 @@ export class RoseGarden {
 
   updateQuality() {
     for (const item of this.items) {
-      if (item.name !== BRIE && item.name !== BACKSTAGE_PASSES) {
-        if (item.quality > 0) {
-          if (item.name !== HAND) {
-            item.quality = item.quality - 1;
-          }
-        }
-      } else {
+      // refactor for individual items and what we should do when we encounter those items, rather that
+      // when we don't
+
+      // logic for brie
+      if (item.name === BRIE) {
         if (item.quality < 50) {
           item.quality++;
-          if (item.name == BACKSTAGE_PASSES) {
-            if (item.sellIn < 11 && item.quality < 50) {
-              item.quality++;
-            }
-            if (item.sellIn < 6 && item.quality < 50) {
-              item.quality++;
-            }
+        }
+        // logic for passes
+      } else if (item.name === BACKSTAGE_PASSES) {
+        if (item.quality < 50) {
+          item.quality++;
+          // concert in 10 days or less, increase quality
+          if (item.sellIn < 11 && item.quality < 50) {
+            item.quality++;
+          }
+          // concertin 5 days or less?, increase quality once more
+          if (item.sellIn < 6 && item.quality < 50) {
+            item.quality++;
           }
         }
+      } else if (item.name === HAND) {
+        // literally a legendary item, no need to make any changes because it's values never change
+      } else {
+        if (item.quality > 0) {
+          item.quality--;
+        }
       }
+      //  cannot change the HAND code due to legendary status
       if (item.name !== HAND) {
         item.sellIn--;
       }
+
+      // logic for sellIn once it goes past 0
       if (item.sellIn < 0) {
+        // BRIE gets better with age
         if (item.name === BRIE) {
           if (item.quality < 50) {
             item.quality++;
           }
+          // BACKSTAGE PASSES
+          // no one wants to see a concert that already happened, set quality to 0
         } else if (item.name === BACKSTAGE_PASSES) {
           item.quality = 0;
+          //  cannot change the HAND code due to legendary status
         } else if (item.name !== HAND) {
+          // NORMAL ITEMS
+          // decrease by 1 quality
           if (item.quality > 0) {
             item.quality--;
           }
