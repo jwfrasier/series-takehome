@@ -12,6 +12,7 @@ describe("Rose Garden", () => {
     expect(items[0].name).toBe("foo");
   });
 });
+
 describe("updateQuality", () => {
   it("decreases quality by 1 for normal items before sellIn date", () => {
     const item = new Item("Normal Item", 10, 10);
@@ -32,6 +33,13 @@ describe("updateQuality", () => {
     garden.updateQuality();
     expect(item.sellIn).toBe(-1);
     expect(item.quality).toBe(0);
+  });
+  it("should not increase item above a quality of 50", () => {
+    const item = new Item("Infinity Edge", 5, 50);
+    const garden = new RoseGarden([item]);
+    garden.updateQuality();
+    expect(item.sellIn).toBe(4);
+    expect(item.quality).toBe(49);
   });
   it("should not increase Aged Brie above a quality of 50", () => {
     const item = new Item(BRIE, 5, 50);
@@ -62,6 +70,14 @@ describe("updateQuality", () => {
     expect(item.sellIn).toEqual(4);
     expect(item.quality).toEqual(13);
   });
+
+  it("increases the quality of Backstage passes by 3 with 5 days or less to the concert", () => {
+    const item = new Item(BACKSTAGE_PASSES, 2, 20);
+    const roseGarden = new RoseGarden([item]);
+    roseGarden.updateQuality();
+    expect(item.sellIn).toEqual(1);
+    expect(item.quality).toEqual(23);
+  });
   it("sets the quality of Backstage passes to 0 after the concert", () => {
     const item = new Item(BACKSTAGE_PASSES, 0, 10);
     const roseGarden = new RoseGarden([item]);
@@ -69,11 +85,16 @@ describe("updateQuality", () => {
     expect(item.sellIn).toEqual(-1);
     expect(item.quality).toEqual(0);
   });
-  it("should not decrease the quality or sellIn of Sulfuras", () => {
+  it("should not decrease the quality of Sulfuras", () => {
+    const sulfuras = new Item(HAND, 10, 80);
+    const roseGarden = new RoseGarden([sulfuras]);
+    roseGarden.updateQuality();
+    expect(sulfuras.quality).toEqual(80);
+  });
+  it("should not decrease the sellIn of Sulfuras", () => {
     const sulfuras = new Item(HAND, 10, 80);
     const roseGarden = new RoseGarden([sulfuras]);
     roseGarden.updateQuality();
     expect(sulfuras.sellIn).toEqual(10);
-    expect(sulfuras.quality).toEqual(80);
   });
 });
