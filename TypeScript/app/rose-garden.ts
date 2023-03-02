@@ -21,7 +21,7 @@ export class RoseGarden {
     this.items = items;
   }
 
-  updateQuality() {
+  updateQuality(): Item[] {
     for (const item of this.items) {
       // refactor for individual items and what we should do when we encounter those items, rather that
       // when we don't
