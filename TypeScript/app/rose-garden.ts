@@ -23,15 +23,18 @@ export class RoseGarden {
 
   updateQuality() {
     for (const item of this.items) {
-      if (item.name != BRIE && item.name != BACKSTAGE_PASSES) {
+      // so if it's not brie and the passes, and the hand, it's a normal item
+      if (item.name !== BRIE && item.name !== BACKSTAGE_PASSES) {
         if (item.quality > 0) {
-          if (item.name != HAND) {
+          if (item.name !== HAND) {
             item.quality = item.quality - 1;
           }
         }
       } else {
+        // item quality can't go over 50
         if (item.quality < 50) {
           item.quality = item.quality + 1;
+          // backstage pass logic
           if (item.name == BACKSTAGE_PASSES) {
             if (item.sellIn < 11) {
               if (item.quality < 50) {
@@ -46,23 +49,19 @@ export class RoseGarden {
           }
         }
       }
-      if (item.name != HAND) {
+      if (item.name !== HAND) {
         item.sellIn = item.sellIn - 1;
       }
       if (item.sellIn < 0) {
-        if (item.name != BRIE) {
-          if (item.name != BACKSTAGE_PASSES) {
-            if (item.quality > 0) {
-              if (item.name != HAND) {
-                item.quality = item.quality - 1;
-              }
-            }
-          } else {
-            item.quality = item.quality - item.quality;
-          }
-        } else {
+        if (item.name === BRIE) {
           if (item.quality < 50) {
-            item.quality = item.quality + 1;
+            item.quality++;
+          }
+        } else if (item.name === BACKSTAGE_PASSES) {
+          item.quality = 0;
+        } else if (item.name !== HAND) {
+          if (item.quality > 0) {
+            item.quality--;
           }
         }
       }

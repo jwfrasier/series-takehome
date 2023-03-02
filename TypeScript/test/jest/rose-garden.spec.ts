@@ -1,5 +1,6 @@
 import { Item, RoseGarden } from "@/rose-garden";
 
+// Item variables go here so we don't have to write them in our new Item instances
 const BRIE: string = "Aged Brie";
 const BACKSTAGE_PASSES: string = "Backstage passes to a TAFKAL80ETC concert";
 const HAND: string = "Sulfuras, Hand of Ragnaros";
