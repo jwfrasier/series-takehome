@@ -11,7 +11,7 @@ export class Item {
 }
 
 const BRIE: string = "Aged Brie";
-const BACKSTAGE_PASS: string = "Backstage passes to a TAFKAL80ETC concert";
+const BACKSTAGE_PASSES: string = "Backstage passes to a TAFKAL80ETC concert";
 const HAND: string = "Sulfuras, Hand of Ragnaros";
 
 export class RoseGarden {
@@ -23,7 +23,10 @@ export class RoseGarden {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].name != BRIE && this.items[i].name != BACKSTAGE_PASS) {
+      if (
+        this.items[i].name != BRIE &&
+        this.items[i].name != BACKSTAGE_PASSES
+      ) {
         if (this.items[i].quality > 0) {
           if (this.items[i].name != HAND) {
             this.items[i].quality = this.items[i].quality - 1;
@@ -32,7 +35,7 @@ export class RoseGarden {
       } else {
         if (this.items[i].quality < 50) {
           this.items[i].quality = this.items[i].quality + 1;
-          if (this.items[i].name == BACKSTAGE_PASS) {
+          if (this.items[i].name == BACKSTAGE_PASSES) {
             if (this.items[i].sellIn < 11) {
               if (this.items[i].quality < 50) {
                 this.items[i].quality = this.items[i].quality + 1;
@@ -51,7 +54,7 @@ export class RoseGarden {
       }
       if (this.items[i].sellIn < 0) {
         if (this.items[i].name != BRIE) {
-          if (this.items[i].name != BACKSTAGE_PASS) {
+          if (this.items[i].name != BACKSTAGE_PASSES) {
             if (this.items[i].quality > 0) {
               if (this.items[i].name != HAND) {
                 this.items[i].quality = this.items[i].quality - 1;
