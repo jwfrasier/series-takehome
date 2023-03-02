@@ -3,7 +3,7 @@ export class Item {
   sellIn: number;
   quality: number;
 
-  constructor(name, sellIn, quality) {
+  constructor(name: string, sellIn: number, quality: number) {
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
@@ -33,24 +33,24 @@ export class RoseGarden {
       } else {
         // item quality can't go over 50
         if (item.quality < 50) {
-          item.quality = item.quality + 1;
+          item.quality++;
           // backstage pass logic
           if (item.name == BACKSTAGE_PASSES) {
             if (item.sellIn < 11) {
               if (item.quality < 50) {
-                item.quality = item.quality + 1;
+                item.quality++;
               }
             }
             if (item.sellIn < 6) {
               if (item.quality < 50) {
-                item.quality = item.quality + 1;
+                item.quality++;
               }
             }
           }
         }
       }
       if (item.name !== HAND) {
-        item.sellIn = item.sellIn - 1;
+        item.sellIn--;
       }
       if (item.sellIn < 0) {
         if (item.name === BRIE) {
