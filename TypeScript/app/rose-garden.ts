@@ -34,17 +34,13 @@ export class RoseGarden {
         // item quality can't go over 50
         if (item.quality < 50) {
           item.quality++;
-          // backstage pass logic
           if (item.name == BACKSTAGE_PASSES) {
-            if (item.sellIn < 11) {
-              if (item.quality < 50) {
-                item.quality++;
-              }
+            // backstage pass logic
+            if (item.sellIn < 11 && item.quality < 50) {
+              item.quality++;
             }
-            if (item.sellIn < 6) {
-              if (item.quality < 50) {
-                item.quality++;
-              }
+            if (item.sellIn < 6 && item.quality < 50) {
+              item.quality++;
             }
           }
         }
