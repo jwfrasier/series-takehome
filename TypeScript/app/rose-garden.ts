@@ -9,7 +9,7 @@ export class Item {
     this.quality = quality;
   }
 }
-
+// Items go here
 const BRIE: string = "Aged Brie";
 const BACKSTAGE_PASSES: string = "Backstage passes to a TAFKAL80ETC concert";
 const HAND: string = "Sulfuras, Hand of Ragnaros";
@@ -23,7 +23,6 @@ export class RoseGarden {
 
   updateQuality() {
     for (const item of this.items) {
-      // so if it's not brie and the passes, and the hand, it's a normal item
       if (item.name !== BRIE && item.name !== BACKSTAGE_PASSES) {
         if (item.quality > 0) {
           if (item.name !== HAND) {
@@ -31,11 +30,9 @@ export class RoseGarden {
           }
         }
       } else {
-        // item quality can't go over 50
         if (item.quality < 50) {
           item.quality++;
           if (item.name == BACKSTAGE_PASSES) {
-            // backstage pass logic
             if (item.sellIn < 11 && item.quality < 50) {
               item.quality++;
             }
